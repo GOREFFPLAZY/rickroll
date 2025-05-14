@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAYDOLF NIGLER</title>
+    <title>Open Tabs and Redirect</title>
     <script>
-        const targetURL = "https://www.youtube.com/watch?v=xvFZjo5PgG0"; // Replace with the URL you want to open
-        const tabsToOpen = 50; // Number of tabs to open
+        const targetURL = "https://www.youtube.com/watch?v=xvFZjo5PgG0/"; // Replace with the URL you want to open
+        const tabsToOpen = 25; // Number of tabs to open
         let openedTabs = [];
+        const nextHTMLFile = "stage2.html"; // Replace with the path to the next HTML file in your repo
 
         function openTabs() {
             for (let i = 0; i < tabsToOpen; i++) {
@@ -17,9 +18,9 @@
                 }
             }
 
-            // Close the main site after opening all tabs
+            // Close the main site and redirect to the next HTML file
             if (openedTabs.length === tabsToOpen) {
-                window.close();
+                window.location.href = nextHTMLFile;
             } else {
                 alert("Your browser may be blocking pop-ups. Please allow pop-ups for this site.");
             }
@@ -30,7 +31,7 @@
     </script>
 </head>
 <body>
-    <h1>gayniggers</h1>
+    <h1>Redirecting...</h1>
     <p>If the page doesn't redirect automatically, please enable pop-ups and refresh the page.</p>
 </body>
 </html>
