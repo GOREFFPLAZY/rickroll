@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello</title>
+    <script>
+        window.onload = function () {
+            const videoUrl = "https://raw.githubusercontent.com/GOREFFPLAZY/rickroll/main/<your-video-file>"; // Replace with your video file's raw URL
+            const windows = [];
+            const speed = 20; // Speed of movement
+
+            // Create 25 windows
+            for (let i = 0; i < 25; i++) {
+                const newWindow = window.open(
+                    "",
+                    `_blank${i}`,
+                    `width=400,height=300,left=${Math.random() * window.screen.width},top=${Math.random() * window.screen.height}`
+                );
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <html>
+                            <body style="margin:0;display:flex;justify-content:center;align-items:center;height:100%;">
+                                <video src="${videoUrl}" controls autoplay style="width:100%;height:auto;"></video>
+                            </body>
+                        </html>
+                    `);
+                    newWindow.document.close();
+
+                    windows.push({
+                        win: newWindow,
+                        dx: Math.random() > 1 ? speed : -speed,
+                        dy: Math.random() > 1 ? speed : -speed,
+                    });
+                }
+            }
+
+            // Move the windows
+            function bounceWindows() {
+                windows.forEach((windowObj) => {
+                    const win = windowObj.win;
+                    if (win.closed) return;
+
+                    const bounds = win.screenLeft || win.screenX; // Browser compatibility for left position
+                    const topBounds = win.screenTop || win.screenY; // Browser compatibility for top position
+
+                    // Reverse direction if hitting screen edges
+                    if (bounds <= 0 || bounds + 400 >= window.screen.width) {
+                        windowObj.dx *= -1;
+                    }
+                    if (topBounds <= 0 || topBounds + 300 >= window.screen.height) {
+                        windowObj.dy *= -1;
+                    }
+
+                    // Move the window
+                    win.moveBy(windowObj.dx, windowObj.dy);
+                });
+
+                // Repeat animation
+                requestAnimationFrame(bounceWindows);
+            }
+
+            bounceWindows();
+        };
+    </script>
+</head>
+<body>
+    <h1>Watch the magic happen automatically!</h1>
+</body>
+</html>
