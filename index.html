@@ -3,68 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hello</title>
+    <title>Redirect Loop</title>
     <script>
-        window.onload = function () {
-            const videoUrl = "https://raw.githubusercontent.com/GOREFFPLAZY/rickroll/main/<your-video-file>"; // Replace with your video file's raw URL
-            const windows = [];
-            const speed = 20; // Speed of movement
+        let redirectCount = 0;
 
-            // Create 25 windows
-            for (let i = 0; i < 25; i++) {
-                const newWindow = window.open(
-                    "",
-                    `_blank${i}`,
-                    `width=400,height=300,left=${Math.random() * window.screen.width},top=${Math.random() * window.screen.height}`
-                );
-                if (newWindow) {
-                    newWindow.document.write(`
-                        <html>
-                            <body style="margin:0;display:flex;justify-content:center;align-items:center;height:100%;">
-                                <video src="${gay.mp4}" controls autoplay style="width:100%;height:auto;"></video>
-                            </body>
-                        </html>
-                    `);
-                    newWindow.document.close();
-
-                    windows.push({
-                        win: newWindow,
-                        dx: Math.random() > 1 ? speed : -speed,
-                        dy: Math.random() > 1 ? speed : -speed,
-                    });
-                }
+        function redirectLoop() {
+            if (redirectCount < 50) {
+                redirectCount++;
+                window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0";
             }
+        }
 
-            // Move the windows
-            function bounceWindows() {
-                windows.forEach((windowObj) => {
-                    const win = windowObj.win;
-                    if (win.closed) return;
-
-                    const bounds = win.screenLeft || win.screenX; // Browser compatibility for left position
-                    const topBounds = win.screenTop || win.screenY; // Browser compatibility for top position
-
-                    // Reverse direction if hitting screen edges
-                    if (bounds <= 0 || bounds + 400 >= window.screen.width) {
-                        windowObj.dx *= -1;
-                    }
-                    if (topBounds <= 0 || topBounds + 300 >= window.screen.height) {
-                        windowObj.dy *= -1;
-                    }
-
-                    // Move the window
-                    win.moveBy(windowObj.dx, windowObj.dy);
-                });
-
-                // Repeat animation
-                requestAnimationFrame(bounceWindows);
-            }
-
-            bounceWindows();
-        };
+        // Start the redirect loop
+        setTimeout(redirectLoop, 10); // Adjust delay (milliseconds) if needed
     </script>
 </head>
 <body>
-    <h1>gay</h1>
+    <!-- Autoplay media -->
+    <audio autoplay loop>
+        <source src="YOUR_AUTOPLAY_URL" type="gay.mp4">
+        Your browser does not support the audio element.
+    </audio>
+
+    <p>If you are not redirected automatically, <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">click here</a>.</p>
 </body>
 </html>
