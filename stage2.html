@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLACEHOLDER</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>PLACEHOLDER</h1>
+    <script>
+        function checkPopupsAllowed() {
+            // Try to open a test popup
+            const test = window.open('about:blank', '_blank', 'width=1,height=1');
+            if (test === null || typeof test === "undefined") {
+                return false;
+            } else {
+                test.close();
+                return true;
+            }
+        }
 
+        function openPopup() {
+            const popup = window.open(
+                'about:blank',
+                `_blank`,
+                `width=800,height=600,left=100,top=100`
+            );
+            if (popup) {
+                popup.document.write(`
+                    <html>
+                        <body style="display:flex;justify-content:center;align-items:center;height:100vh;">
+                            <h2>ogabooga</h2>
+                            <audio id="baaSound" autoplay loop>
+                                <source src="baa.wav" type="audio/wav">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <script>
+                                const audio = document.getElementById('baaSound');
+                                audio.volume = 1.0; // Maximum allowed volume in browsers
+                                setTimeout(function() { window.close(); }, 30000);
+                                window.onunload = function() {
+                                    // Reopen the window if closed
+                                    const newPopup = window.open('about:blank', '_blank', 'width=800,height=600,left=100,top=100');
+                                    newPopup.document.write("<h2>Always On Top</h2>");
+                                };
+                            <\/script>
+                        </body>
+                    </html>
+                `);
+                bounceWindow(popup); // Start bouncing the window
+                return popup;
+            }
+            return null;
+        }
+
+        function bounceWindow(popup) {
+            if (!popup) return;
+
+            // Initialize position and velocity
+            let left = Math.random() * (window.screen.availWidth - 800);
+            let top = Math.random() * (window.screen.availHeight - 600);
+            let velocityX = 100; // Horizontal speed
+            let velocityY = 100; // Vertical speed
+
+            const interval = setInterval(() => {
+                // Update position
+                left += velocityX;
+                top += velocityY;
+
+                // Check for collisions with screen edges and reverse direction if needed
+                if (left <= 0 || left >= window.screen.availWidth - 800) {
+                    velocityX *= -1; // Reverse horizontal direction
+                }
+                if (top <= 0 || top >= window.screen.availHeight - 600) {
+                    velocityY *= -1; // Reverse vertical direction
+                }
+
+                // Move the popup
+                try {
+                    popup.moveTo(left, top);
+                } catch (e) {
+                    clearInterval(interval); // Stop movement if popup is inaccessible
+                }
+            }, 60); // Adjust interval for smoother or faster movement
+        }
+
+        function startCountdown() {
+            let seconds = 0.1;
+            const countdownElem = document.getElementById('countdown');
+            const interval = setInterval(() => {
+                seconds--;
+                if (countdownElem) countdownElem.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    for (let i = 0; i < 15; i++) {
+                        openPopup();
+                    }
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            if (checkPopupsAllowed()) {
+                startCountdown();
+            } else {
+                const h1 = document.querySelector('h1');
+                if (h1) {
+                    h1.textContent = "Please allow popups and reload the page.";
+                }
+            }
+        };
+    </script>
+</body>
+</html>
