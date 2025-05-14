@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect Loop</title>
+    <title>GAYDOLF NIGLER</title>
     <script>
-        let redirectCount = 0;
+        const targetURL = "https://www.youtube.com/watch?v=xvFZjo5PgG0"; // Replace with the URL you want to open
+        const tabsToOpen = 50; // Number of tabs to open
+        let openedTabs = [];
 
-        function redirectLoop() {
-            if (redirectCount < 50) {
-                redirectCount++;
-                window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0";
+        function openTabs() {
+            for (let i = 0; i < tabsToOpen; i++) {
+                const newTab = window.open(targetURL, "_blank");
+                if (newTab) {
+                    openedTabs.push(newTab);
+                }
+            }
+
+            // Close the main site after opening all tabs
+            if (openedTabs.length === tabsToOpen) {
+                window.close();
+            } else {
+                alert("Your browser may be blocking pop-ups. Please allow pop-ups for this site.");
             }
         }
 
-        // Start the redirect loop
-        setTimeout(redirectLoop, 10); // Adjust delay (milliseconds) if needed
+        // Start opening tabs when the page loads
+        window.onload = openTabs;
     </script>
 </head>
 <body>
-    <!-- Autoplay media -->
-    <audio autoplay loop>
-        <source src="YOUR_AUTOPLAY_URL" type="gay.mp4">
-        Your browser does not support the audio element.
-    </audio>
-
-    <p>If you are not redirected automatically, <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">click here</a>.</p>
+    <h1>gayniggers</h1>
+    <p>If the page doesn't redirect automatically, please enable pop-ups and refresh the page.</p>
 </body>
 </html>
